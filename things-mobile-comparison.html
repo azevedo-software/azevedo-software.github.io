@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things Mobile IoT SIM Card Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .comparison-section {
+            margin-bottom: 40px;
+        }
+
+        .comparison-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            background: #f9f9f9;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .product-card h3 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .product-card .price {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .product-card .price-note {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .pricing-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .pricing-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 20px;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        .calculator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .calculator h3 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .calculator-input {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .calculator-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .calculator-input input,
+        .calculator-input select {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .calculator-result {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .calculator-result h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .calculator-result .result-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        button {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #764ba2;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-input {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Things Mobile IoT SIM Card Comparison</h1>
+            <p>Find the perfect IoT connectivity solution for your project</p>
+        </header>
+
+        <div class="content">
+            <div class="comparison-section">
+                <h2>Product Comparison</h2>
+
+                <div class="comparison-grid">
+                    <div class="product-card">
+                        <h3>Single SIM Card with €10 Credit</h3>
+                        <div class="price">~€15-20</div>
+                        <div class="price-note">Estimated Amazon.es price (includes €10 credit)</div>
+
+                        <ul class="feature-list">
+                            <li>1 SIM card included</li>
+                            <li>€10 pre-loaded credit</li>
+                            <li>Triple-cut format (Mini/Micro/Nano)</li>
+                            <li>Global coverage (165+ countries)</li>
+                            <li>Multi-operator (350+ operators)</li>
+                            <li>GSM/2G/3G/4G LTE support</li>
+                            <li>No fixed monthly fees</li>
+                            <li>No expiration date</li>
+                            <li>Credit never expires</li>
+                            <li>Best for: Testing or single device</li>
+                        </ul>
+                    </div>
+
+                    <div class="product-card">
+                        <h3>Pack of 10 SIM Cards (No Credit)</h3>
+                        <div class="price">~€80-120</div>
+                        <div class="price-note">Estimated Amazon.es price (no credit included)</div>
+
+                        <ul class="feature-list">
+                            <li>10 SIM cards included</li>
+                            <li>No pre-loaded credit</li>
+                            <li>Triple-cut format (Mini/Micro/Nano)</li>
+                            <li>Global coverage (165+ countries)</li>
+                            <li>Multi-operator (350+ operators)</li>
+                            <li>GSM/2G/3G/4G LTE support</li>
+                            <li>No fixed monthly fees</li>
+                            <li>No expiration date</li>
+                            <li>Add credit as needed</li>
+                            <li>Best for: Multiple devices or projects</li>
+                        </ul>
+                    </div>
+
+                    <div class="product-card">
+                        <h3>Pack of 10 MFF2 eSIM (Embedded)</h3>
+                        <div class="price">~€100-150</div>
+                        <div class="price-note">Estimated Amazon.es price (no credit included)</div>
+
+                        <ul class="feature-list">
+                            <li>10 MFF2 eSIM chips</li>
+                            <li>No pre-loaded credit</li>
+                            <li>5x6x0.75mm solder-on chip</li>
+                            <li>25-year lifespan at 25°C</li>
+                            <li>Global coverage (165+ countries)</li>
+                            <li>Multi-operator (350+ operators)</li>
+                            <li>GSM/2G/3G/4G LTE support</li>
+                            <li>Industrial temperature range</li>
+                            <li>Permanent soldered installation</li>
+                            <li>Best for: Custom PCB designs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h2>Pricing Structure (All Products)</h2>
+
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Cost</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Rate (Zone 1)</strong></td>
+                            <td>€0.10/MB</td>
+                            <td>Pay-per-use rate for Europe, USA, and 130+ countries</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data Packages</strong></td>
+                            <td>From €0.025/MB</td>
+                            <td>Pre-purchase data packages for better rates</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SMS Sending</strong></td>
+                            <td>$0.18/SMS</td>
+                            <td>Each SMS text message sent (all zones)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Access Fee</strong></td>
+                            <td>$0.25-0.30/month</td>
+                            <td>Charged once per month when SIM connects to network</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IoT Portal Fee</strong></td>
+                            <td>$1-3/month per account</td>
+                            <td>Starts 30 days after first SIM activation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Minimum Monthly Usage</strong></td>
+                            <td>5 MB (Zone 1)</td>
+                            <td>Minimum charge even with no data usage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fixed IP Address</strong></td>
+                            <td>$30 setup + $2.50/month</td>
+                            <td>Optional - for static IP requirement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Billing Increment</strong></td>
+                            <td>1 KB</td>
+                            <td>Data charged in 1 kilobyte increments</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="highlight">
+                    <strong>Important:</strong> Zone 1 includes Europe, USA, and most major countries. Other zones may have different rates. Check the Things Mobile coverage map for specific countries.
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h2>Coverage & Technical Specifications</h2>
+
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Specification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Global Coverage</strong></td>
+                            <td>165+ countries worldwide</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Operators</strong></td>
+                            <td>350+ roaming operators</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Types</strong></td>
+                            <td>2G, 3G, 4G LTE, CAT-1, CAT-M1, NB-IoT (coming soon)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Automatic Switching</strong></td>
+                            <td>Connects to best signal/coverage operator automatically</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SIM Lifespan</strong></td>
+                            <td>10+ years (standard), 25 years (MFF2 at 25°C)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Temperature Range</strong></td>
+                            <td>Industrial grade - withstands extreme temperatures</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Durability</strong></td>
+                            <td>Resistant to vibration, corrosion, extreme conditions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Services Supported</strong></td>
+                            <td>Data + SMS (no voice calls)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Management</strong></td>
+                            <td>IoT Portal, REST API, GSM triangulation location</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Credit Expiration</strong></td>
+                            <td>Never expires</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="comparison-section">
+                <h2>Cost Calculator</h2>
+
+                <div class="calculator">
+                    <h3>Estimate Your Monthly Costs</h3>
+
+                    <div class="calculator-input">
+                        <div>
+                            <label for="numDevices">Number of Devices:</label>
+                            <input type="number" id="numDevices" value="1" min="1" max="1000">
+                        </div>
+
+                        <div>
+                            <label for="dataPerDevice">Data per Device (MB/month):</label>
+                            <input type="number" id="dataPerDevice" value="10" min="0" step="0.1">
+                        </div>
+
+                        <div>
+                            <label for="smsPerDevice">SMS per Device (monthly):</label>
+                            <input type="number" id="smsPerDevice" value="0" min="0">
+                        </div>
+
+                        <div>
+                            <label for="dataRate">Data Rate:</label>
+                            <select id="dataRate">
+                                <option value="0.10">€0.10/MB (Pay-per-use)</option>
+                                <option value="0.025">€0.025/MB (Data package)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button onclick="calculateCost()">Calculate Monthly Cost</button>
+
+                    <div class="calculator-result" id="result" style="display:none;">
+                        <h4>Estimated Monthly Cost:</h4>
+                        <div class="result-value" id="resultValue">€0.00</div>
+                        <div id="breakdown" style="margin-top: 15px; line-height: 1.8;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h2>Key Differences Summary</h2>
+
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Single SIM + €10 Credit</th>
+                            <th>Pack of 10 SIMs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Best For</strong></td>
+                            <td>Testing, single device, beginners</td>
+                            <td>Multiple devices, production deployments</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Initial Investment</strong></td>
+                            <td>Lower (~€15-20)</td>
+                            <td>Higher (~€80-150)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Included Credit</strong></td>
+                            <td>€10 ready to use</td>
+                            <td>None - add as needed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost per SIM</strong></td>
+                            <td>€15-20 per SIM</td>
+                            <td>€8-15 per SIM (bulk discount)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Immediate Use</strong></td>
+                            <td>Yes - credit included</td>
+                            <td>No - requires credit top-up</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Flexibility</strong></td>
+                            <td>One-time purchase</td>
+                            <td>Distribute across multiple projects</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Scalability</strong></td>
+                            <td>Limited</td>
+                            <td>Better for scaling</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="comparison-section">
+                <h2>Use Case Recommendations</h2>
+
+                <div class="comparison-grid">
+                    <div class="product-card">
+                        <h3>Choose Single SIM + €10 Credit if:</h3>
+                        <ul class="feature-list">
+                            <li>You're testing IoT connectivity</li>
+                            <li>You have only one device</li>
+                            <li>You want immediate activation</li>
+                            <li>You're new to IoT projects</li>
+                            <li>You need to validate your concept</li>
+                            <li>Budget is tight initially</li>
+                        </ul>
+                    </div>
+
+                    <div class="product-card">
+                        <h3>Choose Pack of 10 SIMs if:</h3>
+                        <ul class="feature-list">
+                            <li>You have multiple devices (5-10+)</li>
+                            <li>You're deploying production systems</li>
+                            <li>You want bulk discount pricing</li>
+                            <li>You manage credit separately</li>
+                            <li>You need spares/replacements</li>
+                            <li>You're an integrator/reseller</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 30px;">
+                <strong>Note:</strong> Prices shown are estimates based on typical Amazon.es pricing. Actual prices may vary. Always check current Amazon.es listings for exact pricing. The data rates and fees are from Things Mobile's official pricing structure as of 2025.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateCost() {
+            const numDevices = parseFloat(document.getElementById('numDevices').value) || 0;
+            const dataPerDevice = parseFloat(document.getElementById('dataPerDevice').value) || 0;
+            const smsPerDevice = parseFloat(document.getElementById('smsPerDevice').value) || 0;
+            const dataRate = parseFloat(document.getElementById('dataRate').value) || 0.10;
+
+            // Calculate costs
+            const totalData = numDevices * dataPerDevice;
+            const totalSMS = numDevices * smsPerDevice;
+
+            // Ensure minimum 5MB per SIM in Zone 1
+            const minDataPerSim = 5;
+            const effectiveDataPerDevice = Math.max(dataPerDevice, minDataPerSim);
+            const effectiveTotalData = numDevices * effectiveDataPerDevice;
+
+            const dataCost = effectiveTotalData * dataRate;
+            const smsCost = totalSMS * 0.18;
+            const networkFee = numDevices * 0.27; // Average of $0.25-0.30, converted to EUR
+            const portalFee = 2.70; // Average of $1-3, converted to EUR (per account, not per SIM)
+
+            const totalCost = dataCost + smsCost + networkFee + portalFee;
+
+            // Display result
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('resultValue').textContent = '€' + totalCost.toFixed(2);
+
+            document.getElementById('breakdown').innerHTML = `
+                <strong>Cost Breakdown:</strong><br>
+                Data: €${dataCost.toFixed(2)} (${effectiveTotalData.toFixed(1)} MB × €${dataRate})<br>
+                ${dataPerDevice < minDataPerSim ? '<em style="color: #ffeb3b;">* Minimum 5MB/SIM applied</em><br>' : ''}
+                SMS: €${smsCost.toFixed(2)} (${totalSMS} SMS × €0.18)<br>
+                Network Access: €${networkFee.toFixed(2)} (${numDevices} SIM × €0.27)<br>
+                IoT Portal: €${portalFee.toFixed(2)} (per account)<br>
+                <br>
+                <strong>Per Device Cost: €${(totalCost / numDevices).toFixed(2)}/month</strong>
+            `;
+        }
+
+        // Calculate on page load with default values
+        window.addEventListener('load', calculateCost);
+    </script>
+</body>
+</html>
